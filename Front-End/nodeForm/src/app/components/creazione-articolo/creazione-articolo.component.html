@@ -1,0 +1,144 @@
+<p-toast position="top-center"></p-toast>
+<div id="page">
+  <div id="titolo-container">
+    <h2>Crea articolo</h2>
+  </div>
+  <div id="informazioni-personali">
+    <form [formGroup]="infoPersonaliForm">
+    <div class="header-panel">
+      <h3 style="padding-left: 10px;">Informazioni personali</h3>
+    </div>
+    <div class="content-container">
+
+        <div class="container-input">
+          <div class="input-group">
+            <label for="lingua"><span class="grassetto">lingua* </span></label>
+            <select name="lingua" formControlName="lingua" id="lingua" class="form-control lingua">
+              <option selected value="It" > It</option>
+              <option value="En">En</option>
+              <option value="Fr">Fr</option>
+              <option value="De">De</option>
+              <option value="Es">Es</option>
+            </select>
+            <label for="lingua" class="form-error" *ngIf="infoPersonaliForm.get('lingua')?.errors as errorsLingua">
+              <span *ngIf="errorsLingua['required']">Campo obbligatorio</span>
+            </label>
+          </div>
+        </div>
+        <div class="container-input" id="titolo-sottotitolo-container">
+          <div class="input-group titolo-container">
+            <label for="titolo"><span class="grassetto">Titolo* </span><span class="consiglio"> inserisci massimo 15 parole</span></label>
+            <input type="text" id="titolo" formControlName="titolo" class="form-control input" placeholder="Inserisci titolo">
+            <label for="titolo" class="form-error" *ngIf="infoPersonaliForm.get('titolo')?.errors as errorsTitolo">
+              <span *ngIf="errorsTitolo['required']">Campo obbligatorio</span>
+              <span *ngIf="errorsTitolo['maxParoleError']">Numero di parole consentito superato</span>
+            </label>
+          </div>
+          <div class="input-group sottoTitolo-container">
+            <label for="sottoTitolo"><span class="grassetto">Sottotitolo* </span><span class="consiglio"> inserisci massimo 17 parole</span></label>
+            <input type="text" id="sottoTitolo" formControlName="sottoTitolo" class="form-control input" placeholder="Inserisci sottotitolo">
+            <label for="sottoTitolo" class="form-error" *ngIf="infoPersonaliForm.get('sottoTitolo')?.errors as errorsSottoTitolo">
+              <span *ngIf="errorsSottoTitolo['maxParoleError']">Numero di parole consentito superato</span>
+            </label>
+          </div>
+        </div>
+        <div class="container-input">
+          <div class="input-group">
+            <label for="descrizione"><span class="grassetto">Descrizione* </span></label>
+            <textarea id="descrizione" formControlName="descrizione"  rows="3" class="form-control descrizione" placeholder="Inserisci descrizione"></textarea>
+            <label for="descrizione" class="form-error" *ngIf="infoPersonaliForm.get('descrizione')?.errors as errorsDescrizione">
+              <span *ngIf="errorsDescrizione['required']">Campo obbligatorio</span>
+            </label>
+          </div>
+        </div>
+        <div class="container-input">
+          <div class="input-group">
+            <label for="citta"><span class="grassetto">Città* </span></label>
+            <input  type="text" id="citta" formControlName="citta" class="form-control input" placeholder="Inserisci città">
+            <label for="citta" class="form-error" *ngIf="infoPersonaliForm.get('citta')?.errors as errorsCitta">
+              <span *ngIf="errorsCitta['required']">Campo obbligatorio</span>
+            </label>
+          </div>
+        </div>
+        <div class="container-input">
+          <div class="input-group">
+            <label for="immagine"><span class="grassetto">Carica immagine* </span></label>
+            <input type="file" id="immagine" formControlName="immagine" class="form-control immagine" accept="image/*"  (change)="caricamentoFile($event,'infoPersonali')" multiple="false">
+            <label for="immagine" class="form-error" *ngIf="infoPersonaliForm.get('immagine')?.errors as errorsImmagine">
+              <span *ngIf="errorsImmagine['required']">Campo obbligatorio</span>
+            </label>
+            <label for="immagine" class="form-error">
+              <span id="spanInfoFotoError"></span>
+            </label>
+          </div>
+        </div>
+    </div>
+
+    <div id="paragrafi-container" formArrayName="paragrafi">
+      <div *ngFor="let paragrafo of paragrafiFormArray.controls;; let i = index" [formGroupName]="i" style="margin-bottom: 20px;">
+
+        <div class="header-panel">
+          <h3 style="padding-left: 10px;">paragrafo {{i+1}}</h3>
+        </div>
+
+        <div  class="content-container" style="padding-top: 7px;">
+          <div class="container-input titolo-paragrafo-container" >
+            <div class="input-group">
+              <label for="paragraphTitle"><span class="grassetto">Titolo paragrafo* </span></label>
+              <input  type="text" id="paragraphTitle" formControlName="paragraphTitle" class="form-control input" placeholder="Inserisci titolo">
+              <label for="paragraphTitle" class="form-error" *ngIf="paragrafo.get('paragraphTitle')?.errors as errorsTitoloParagrafo">
+                <span *ngIf="errorsTitoloParagrafo['required']">Campo obbligatorio</span>
+              </label>
+            </div>
+          </div>
+          <div class="container-input">
+            <div class="input-group">
+              <label for="paragraphText"><span class="grassetto">Descrizione del paragrafo* </span></label>
+              <textarea id="paragraphText" formControlName="paragraphText"  rows="3" class="form-control descrizione" placeholder="Inserisci descrizione"></textarea>
+              <label for="paragraphText" class="form-error" *ngIf="paragrafo.get('paragraphText')?.errors as errorsDescrizioneParagrafo">
+                <span *ngIf="errorsDescrizioneParagrafo['required']">Campo obbligatorio</span>
+              </label>
+            </div>
+          </div>
+          <div class="container-input">
+            <div class="input-group">
+              <label for="destinationID"><span class="grassetto">Città* </span></label>
+              <input  type="text" id="destinationID" formControlName="destinationID" class="form-control input" placeholder="Inserisci città">
+              <label for="destinationID" class="form-error" *ngIf="paragrafo.get('destinationID')?.errors as errorsCittaParagrafo">
+                <span *ngIf="errorsCittaParagrafo['required']">Campo obbligatorio</span>
+              </label>
+            </div>
+          </div>
+          <div class="container-input foto-paragrafo-container">
+            <div class="input-group">
+              <label for="mediaImage"><span class="grassetto">Carica immagine* </span></label>
+              <input type="file" id="mediaImage" formControlName="mediaImage" class="form-control immagine" accept="image/*"  (change)="caricamentoFile($event,'paragrafo-'+i)" multiple="false">
+              <label for="mediaImage" class="form-error" *ngIf="paragrafo.get('mediaImage')?.errors as errorsImmagineParagrafo">
+                <span *ngIf="errorsImmagineParagrafo['required']">Campo obbligatorio</span>
+              </label>
+              <label for="mediaImage" class="form-error">
+                <span id="spanParagrafoFotoError-{{i}}"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+  </div>
+
+  <div id="bottom">
+    <button id="salva" (click)="salva()" [disabled]="bloccaTastoSalva()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-floppy" viewBox="0 0 16 16">
+        <path d="M11 2H9v3h2z"/>
+        <path d="M1.5 0h11.586a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13A1.5 1.5 0 0 1 1.5 0M1 1.5v13a.5.5 0 0 0 .5.5H2v-4.5A1.5 1.5 0 0 1 3.5 9h9a1.5 1.5 0 0 1 1.5 1.5V15h.5a.5.5 0 0 0 .5-.5V2.914a.5.5 0 0 0-.146-.353l-1.415-1.415A.5.5 0 0 0 13.086 1H13v4.5A1.5 1.5 0 0 1 11.5 7h-7A1.5 1.5 0 0 1 3 5.5V1H1.5a.5.5 0 0 0-.5.5m3 4a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V1H4zM3 15h10v-4.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5z"/>
+      </svg>
+      Salva</button>
+    <button id="aggiungi-paragrafo" type="button" (click)="aggiungiParagrafo()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+      </svg>
+      Aggiungi paragrafo</button>
+  </div>
+</div>
