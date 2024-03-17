@@ -93,6 +93,9 @@ button{
 #salva{
   background-color: green;
 }
+#reset{
+  background-color: red;
+}
 #aggiungi-paragrafo{
   background-color: var(--blue);
   margin-left: 10px;
@@ -111,6 +114,9 @@ svg{
 
 button:disabled{
   opacity: 0.6;
+}
+.reset-container{
+  margin-top: 20px;
 }
 
 @media screen and (max-width: 600px) {

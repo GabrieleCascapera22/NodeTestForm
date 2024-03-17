@@ -59,6 +59,10 @@ export class CreazioneArticoloComponent implements OnInit {
     this.paragrafiFormArray.push(this.creaParagrafo());
   }
 
+  rimuoviParagrafo(index: number) {
+    this.paragrafiFormArray.removeAt(index);
+  }
+
   /**
  *metodo che gestisce il carimento di tutte le foto dei form
  * @param {File} file - foto caricato dal form

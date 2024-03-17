@@ -120,6 +120,9 @@
                 <span id="spanParagrafoFotoError-{{i}}"></span>
               </label>
             </div>
+            <div class="reset-container">
+              <button id="reset" type="button" (click)="rimuoviParagrafo(i)" *ngIf="i!==0">Reset</button>
+            </div>
           </div>
         </div>
       </div>
